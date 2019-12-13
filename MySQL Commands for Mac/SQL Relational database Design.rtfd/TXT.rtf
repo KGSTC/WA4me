@@ -1,0 +1,366 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 ArialMT;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;\f4\fswiss\fcharset0 Helvetica-Oblique;\f5\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red33\green255\blue6;\red255\green255\blue255;\red251\green2\blue7;
+\red5\green61\blue204;\red0\green0\blue0;\red255\green255\blue10;\red252\green106\blue8;\red255\green255\blue11;
+\red255\green255\blue255;\red33\green255\blue255;\red253\green128\blue8;\red35\green255\blue6;\red251\green0\blue255;
+\red251\green2\blue255;\red14\green14\blue14;\red251\green2\blue255;\red5\green61\blue204;\red114\green44\blue253;
+\red252\green73\blue64;\red74\green0\blue230;\red102\green177\blue50;\red194\green229\blue166;\red0\green0\blue0;
+\red255\green255\blue10;\red251\green2\blue7;\red23\green186\blue251;\red33\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c97680\c0;\csgray\c100000;\cssrgb\c100000\c14913\c0;
+\cssrgb\c0\c33896\c83855;\cssrgb\c0\c0\c0;\cssrgb\c99942\c98555\c0;\cssrgb\c100000\c50196\c0;\cssrgb\c100000\c100000\c0;
+\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c100000\c100000;\cssrgb\c100000\c57637\c0;\cssrgb\c0\c100000\c0;\cssrgb\c100000\c0\c100000;
+\cssrgb\c100000\c25279\c100000;\cssrgb\c6667\c6667\c6667;\cssrgb\c100000\c25279\c100000;\cssrgb\c0\c33896\c83855;\cssrgb\c52799\c30710\c99498;
+\cssrgb\c100000\c38374\c31601;\cssrgb\c36820\c18688\c92265;\cssrgb\c46532\c73327\c25364;\cssrgb\c80097\c91038\c70905;\csgray\c0;
+\cssrgb\c99942\c98555\c0;\cssrgb\c100000\c14913\c0;\cssrgb\c0\c77905\c98860;\cssrgb\c0\c99144\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28300\viewh14680\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1/ \cb2 Define OBJECTS:\cb1  the pieces of information\
+	E.g.: Artist, album, track, genre, Len, rating, count\'85\
+\
+2/ \cb2 Define RELATIONSHIPS between objects \cb3  \
+	\cb4 ?1 \cb3 Which are the essential objects / parts of other objects:\
+	E.g: len, rating, count\'97> track  \
+\
+	\cb4 ?2\cb3  Which object is the most related to track:\
+	Track
+\fs28  
+\fs24 \'97\'97
+\fs18 BELONGS TO
+\fs24 \'97-> Album \'97-
+\fs18 BELONGS TO
+\fs24  \'97> Artist \
+	  |\
+
+\fs18 BELONGS TO
+\fs24 \
+	  |\
+    GENRE\
+3/ \cb2 Draw database model including primary keys to model the relationships between the objects\cb3  = adding bookkeeping columns.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb5 {{\NeXTGraphic Pasted Graphic 2.png \width11760 \height6960 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \
+\
+4/ \cb2 Create the Database and tables:\cb1   working our way from the leaves to the tree (outside to inside:) : Artist\'97>Album\'97>Track\
+\
+\pard\pardeftab1440\partightenfactor0
+
+\f1 \cf6 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature0 \outl0\strokewidth-67 \strokec6 # \cb7 Open MySql:\cb3    /
+\f2 A
+\f3\b pplications/MAMP/Library/bin/mysql \cf0 \kerning1\expnd0\expndtw0 \CocoaLigature1 \outl0\strokewidth0 -uroot -proot
+\f0\b0 \cb1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+
+\f4\i \cb7 #
+\f0\i0 Create a database  	\cb1 \
+\pard\tx4415\pardeftab405\partightenfactor0
+
+\f1\fs36 \cf8 \expnd0\expndtw0\kerning0
+\CocoaLigature0 \outl0\strokewidth-84 CREATE DATABASE \cf9 \outl0\strokewidth-84 Music3\
+   \cf8 \outl0\strokewidth-84 DEFAULT CHARACTER SET utf8;\cf10 \outl0\strokewidth-84 \
+\cf8 \outl0\strokewidth-84 USE\cf10 \outl0\strokewidth-84  \cf9 \outl0\strokewidth-84 Music\cf10 \outl0\strokewidth-84 ;\
+
+\f5 \outl0\strokewidth-84 \
+\pard\pardeftab405\partightenfactor0
+
+\fs24 \cf6 \cb7 \outl0\strokewidth-112 # Create tables with primary keys:\cf6 \cb3 \outl0\strokewidth-112  \
+\pard\pardeftab405\partightenfactor0
+
+\fs36 \cf8 \cb1 \
+
+\f1 CREATE TABLE \cf9 \outl0\strokewidth-112 Artist\cf8 \outl0\strokewidth-112  (\
+  \cf11 \outl0\strokewidth-112 artist_id \cf8 \outl0\strokewidth-112 INTEGER NOT NULL AUTO_INCREMENT KEY, \cf12 \cb12 \outl0\strokewidth-112 #Primary key\cf8 \cb1 \outl0\strokewidth-112 \
+  \cf9 \outl0\strokewidth-112 name\cf8 \outl0\strokewidth-112  VARCHAR(\cf9 \outl0\strokewidth-112 255\cf8 \outl0\strokewidth-112 ) \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-112 \
+  ) ENGINE = InnoDB;\
+\
+CREATE TABLE \cf9 \outl0\strokewidth-112 Album\cf8 \outl0\strokewidth-112  (\
+  \cf11 \outl0\strokewidth-112 album_id \cf8 \outl0\strokewidth-112 INTEGER NOT NULL AUTO_INCREMENT KEY, \cf12 \cb12 \outl0\strokewidth-112 #Primary key\cf13 \cb1 \outl0\strokewidth-112   \cf8 \outl0\strokewidth-112 \
+  title VARCHAR (255), \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-112  \
+	\cf14 \outl0\strokewidth-112 artist_id \cf8 \outl0\strokewidth-112 INTEGER, \cf8 \cb15 \outl0\strokewidth-112 #Foreign key\cf8 \cb1 \outl0\strokewidth-112 \
+  INDEX USING BTREE (\cf13 \outl0\strokewidth-112 title\cf8 \outl0\strokewidth-112 ), \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-112   \
+\
+ \cf8 \cb15 \outl0\strokewidth-112  CONSTRAINT FOREIGN KEY (\cf14 \cb15 \outl0\strokewidth-112 artist_id\cf8 \cb15 \outl0\strokewidth-112 ) # artist_id is dependent on Artist table\
+    REFERENCES \cf9 \cb15 \outl0\strokewidth-112 Artist\cf8 \cb15 \outl0\strokewidth-112  (\cf11 \cb15 \outl0\strokewidth-112 artist_id\cf8 \cb15 \outl0\strokewidth-112 ) \
+    ON DELETE CASCADE ON UPDATE CASCADE # Delete/update all the rows that have the corresponding artist_id in the whole database Music\
+\cf8 \cb1 \outl0\strokewidth-112 ) ENGINE = InnoDB;\
+\
+\pard\pardeftab405\partightenfactor0
+\cf8 \outl0\strokewidth-154 CREATE TABLE \cf9 \outl0\strokewidth-154 Genre\cf8 \outl0\strokewidth-154  (\
+  \cf11 \outl0\strokewidth-154 genre_id \cf8 \outl0\strokewidth-154 INTEGER NOT NULL AUTO_INCREMENT KEY, \cf12 \cb12 \outl0\strokewidth-112 #Primary key\cf8 \cb1 \outl0\strokewidth-154 \
+  \cf13 \outl0\strokewidth-154 name \cf8 \outl0\strokewidth-154 VARCHAR(\cf9 \outl0\strokewidth-154 255\cf8 \outl0\strokewidth-154 ), \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-154 \
+  \
+INDEX USING BTREE (\cf13 \outl0\strokewidth-154 name\cf8 \outl0\strokewidth-154 ) \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-154 \
+\
+) ENGINE = InnoDB;\
+\
+CREATE TABLE \cf9 \outl0\strokewidth-154 Track\cf8 \outl0\strokewidth-154  (\
+  \cf11 \outl0\strokewidth-154 track_id \cf8 \outl0\strokewidth-154 INTEGER NOT NULL AUTO_INCREMENT KEY, \cf12 \cb12 \outl0\strokewidth-112 #Primary key\cf8 \cb1 \outl0\strokewidth-154 \
+  \cf13 \outl0\strokewidth-154 title \cf8 \outl0\strokewidth-154 VARCHAR(\cf9 \outl0\strokewidth-154 255\cf8 \outl0\strokewidth-154 ), \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-154  \
+\cf9 \outl0\strokewidth-154   len \cf8 \outl0\strokewidth-154 INTEGER, \
+  \cf9 \outl0\strokewidth-154 rating\cf8 \outl0\strokewidth-154  INTEGER, \
+\cf9 \outl0\strokewidth-154   count\cf8 \outl0\strokewidth-154  INTEGER,\
+  \cf14 \outl0\strokewidth-154 album_id \cf8 \outl0\strokewidth-154 INTEGER, \cf8 \cb15 \outl0\strokewidth-112 #Foreign key\cf8 \cb1 \outl0\strokewidth-154  \
+  genre_id INTEGER, \cf8 \cb15 \outl0\strokewidth-112 #Foreign key\cf8 \cb1 \outl0\strokewidth-154 \
+  INDEX USING BTREE (\cf13 \outl0\strokewidth-154 title\cf8 \outl0\strokewidth-154 ), \cf8 \cb2 \outl0\strokewidth-112 # Logical key\cf8 \cb1 \outl0\strokewidth-154 \
+\
+  \cf8 \cb15 \outl0\strokewidth-154 CONSTRAINT FOREIGN KEY (\cf14 \outl0\strokewidth-154 album_id\cf8 \outl0\strokewidth-154 ) REFERENCES \cf9 \outl0\strokewidth-154 Album\cf8 \outl0\strokewidth-154  (\cf11 \outl0\strokewidth-154 album_id\cf8 \outl0\strokewidth-154 )  # 
+\f0\fs28 \cf16 \cb17 \CocoaLigature1 \outl0\strokewidth0 When a row in the parent table is deleted all the rows in a child table that point to that row via a foreign key are deleted
+\f1\fs36 \cf8 \cb15 \CocoaLigature0 \outl0\strokewidth-154 \strokec6 \
+    ON DELETE CASCADE ON UPDATE CASCADE,\
+  CONSTRAINT FOREIGN KEY (\cf14 \outl0\strokewidth-154 genre_id\cf8 \outl0\strokewidth-154 ) REFERENCES \cf9 \outl0\strokewidth-154 Genre\cf8 \outl0\strokewidth-154  (\cf11 \outl0\strokewidth-154 genre_id\cf8 \outl0\strokewidth-154 ) \
+    ON DELETE CASCADE ON UPDATE CASCADE\cf8 \cb1 \outl0\strokewidth-154  \
+\
+) ENGINE = InnoDB;\
+\pard\pardeftab405\partightenfactor0
+\cf10 \outl0\strokewidth-84 \
+\pard\pardeftab405\partightenfactor0
+
+\fs24 \cf0 \cb2 \outl0\strokewidth-84 5/ Insert data points into tables: o\cb1 utside to inside: artist \'97\'97> Track\
+\
+\cb7 # Insert data\cb1 \
+\pard\tx4415\pardeftab405\partightenfactor0
+\cf0 \
+\pard\pardeftab1440\partightenfactor0
+
+\fs36 \cf0 \outl0\strokewidth-100 INSERT INTO Artist (name) VALUES ('Led Zepplin');  # \cb18 artist_id/1\cb1 \
+INSERT INTO Artist (name) VALUES ('AC/DC');         #\cb19 artist_id/2\cb1 \
+\
+INSERT INTO Genre (name) VALUES ('Rock');         #\cb20 genre_id/1\cb1 \
+INSERT INTO Genre (name) VALUES ('Metal');         #\cb4 genre_id/2\cb1 \
+\
+INSERT INTO Album (title, artist_id) VALUES ('Who Made Who', \cb21 2)\cb1 ;  # \cb22 album_id/1\cb1 \
+INSERT INTO Album (title, artist_id) VALUES ('IV', \cb18 1)\cb1 ;  # \cb23 album_id/2\cb1 \
+\
+\pard\pardeftab405\partightenfactor0
+\cf0 \outl0\strokewidth-134 INSERT INTO Track (title, rating, len, count, album_id, genre_id) VALUES ('Black Dog', 5, 297, 0,\cb23  2\cb1 , \cb20 1\cb1 );\
+INSERT INTO Track (title, rating, len, count, album_id, genre_id) VALUES ('Stairway', 5, 482, 0, \cb23 2\cb1 , \cb20 1\cb1 );\
+INSERT INTO Track (title, rating, len, count, album_id, genre_id) VALUES ('About to Rock', 5, 313, 0, \cb22 1\cb1 , \cb4 2)\cb1 ;\
+INSERT INTO Track (title, rating, len, count, album_id, genre_id) VALUES ('Who Made Who', 5, 207, 0, \cb22 1\cb1 , \cb4 2)\cb1 ;\outl0\strokewidth-100 \
+\pard\pardeftab1440\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \CocoaLigature1 \outl0\strokewidth0 {{\NeXTGraphic Pasted Graphic.png \width13000 \height7300 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\
+\
+6/ Construction of the representation of data: Connection between the tables without the foreign keys / not in the database but only when displayed for the user.\
+\
+
+\f1\fs36 \cf6 \expnd0\expndtw0\kerning0
+\CocoaLigature0 \outl0\strokewidth-84 \strokec6 SELECT Album.title, Album.artist_id, Artist.artist_id,Artist.name FROM Album JOIN Artist ON Album.artist_id = Artist.artist_id;\cf0 \kerning1\expnd0\expndtw0 \CocoaLigature1 \outl0\strokewidth0 \
+\expnd0\expndtw0\kerning0
+\CocoaLigature0 \outl0\strokewidth-100 \strokec6 \
+\pard\pardeftab1440\partightenfactor0
+
+\fs40 \cf0  
+\f2\fs22 \cf24 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 +--------------+-----------+-----------+-------------+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+| title        | artist_id | artist_id | name        |\
++--------------+-----------+-----------+-------------+\
+| IV           |         1 |         1 | Led Zepplin |\
+| Who Made Who |         2 |         2 | AC/DC       |\
++--------------+-----------+-----------+-------------+\
+\
+
+\f1\fs36 SELECT Album.title, Album.artist_id, Artist.name FROM Album JOIN Artist ON Album.artist_id = Artist.artist_id;
+\f2 \
+
+\fs22 +--------------+-----------+-------------+\
+| title        | artist_id | name        |\
++--------------+-----------+-------------+\
+| IV           |         1 | Led Zepplin |\
+| Who Made Who |         2 | AC/DC       |\
++--------------+-----------+-------------+\
+\
+
+\f1\fs36 SELECT Album.title,  Artist.name FROM Album JOIN Artist ON Album.artist_id = Artist.artist_id;
+\f2\fs22 \
++--------------+-------------+\
+| title        | name        |\
++--------------+-------------+\
+| IV           | Led Zepplin |\
+| Who Made Who | AC/DC       |\
++--------------+-------------+\
+\
+
+\f1\fs36 SELECT Track.title, genre.name FROM Track JOIN Genre on Track.genre_id = Genre. genre_id;
+\f2 \
+
+\fs22 +---------------+-------+\
+| title         | name  |\
++---------------+-------+\
+| Black Dog     | Rock  |\
+| Stairway      | Rock  |\
+| About to Rock | Metal |\
+| Who Made Who  | Metal |\
++---------------+-------+\
+\
+SELECT Track.title, Artist.name, Album.title, Genre.name FROM Track join Artist join Album join Genre on Track.genre_id = Genre.genre_id and Track.album_id= Album.album_id and Album.artist_id and Artist.artist_id;\
+\
++---------------+-------------+--------------+-------+\
+| title         | name        | title        | name  |\
++---------------+-------------+--------------+-------+\
+| Black Dog     | Led Zepplin | IV           | Rock  |\
+| Black Dog     | AC/DC       | IV           | Rock  |\
+| Stairway      | Led Zepplin | IV           | Rock  |\
+| Stairway      | AC/DC       | IV           | Rock  |\
+| About to Rock | Led Zepplin | Who Made Who | Metal |\
+| About to Rock | AC/DC       | Who Made Who | Metal |\
+| Who Made Who  | Led Zepplin | Who Made Who | Metal |\
+| Who Made Who  | AC/DC       | Who Made Who | Metal |\
++---------------+-------------+--------------+-------+\
+\
+7/ 
+\f1 In case of deletion: ==> Cascade deletion: row in the table and all rows in other tables with that same \'93foreign key\'94 , in \cb25 CASCADE\cb1 \
+\
+E.g.: 
+\fs36 DELETE FORM Genre WHERE name = \'91Metal\'92;\
+\
+
+\f2\fs22 SELECT * FROM Genre; \cf26 # Row \'91metal has been deleted in table Genre\cf24 \
++----------+------+\
+| genre_id | name |\
++----------+------+\
+|        1 | Rock |\
++----------+------+\
+
+\f1\fs36 \
+
+\f2\fs22  SELECT* from Track; \cf26 # Row \'91metal has been deleted in table Track, also\cf24 \
++----------+-----------+------+--------+-------+----------+----------+\
+| track_id | title     | len  | rating | count | album_id | genre_id |\
++----------+-----------+------+--------+-------+----------+----------+\
+|        1 | Black Dog |  297 |      5 |     0 |        2 |        1 |\
+|        2 | Stairway  |  482 |      5 |     0 |        2 |        1 |\
++----------+-----------+------+--------+-------+----------+----------+
+\f1\fs36 \
+\
+8/ One to many relationships \
+E.g.: Genre \'97-> more than one track, Mother \'97-> more than one child\
+\
+9/ many to many relationships\
+E.g.: Many Books <\'97-> Many authors 
+\f0\fs24 \cf0 \CocoaLigature1 {{\NeXTGraphic Pasted Graphic 1.png \width5660 \height1300 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\f1\fs36 \cf24 \CocoaLigature0 \
+\
+\
+\
+===>Add a connection or junction                           
+\f0\fs24 \cf0 \CocoaLigature1 {{\NeXTGraphic 1__#$!@%!#__Pasted Graphic 2.png \width6180 \height2040 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\f1\fs36 \cf24 \CocoaLigature0 \
+Table with 2 foreign keys\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb27 \CocoaLigature1 {{\NeXTGraphic 99DA5537-247E-4E8D-918D-D146AE97061A.png \width12700 \height6020 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\cb3  \
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf24 \cb1 \CocoaLigature0 mysql> CREATE DATABASE UNI DEFAULT CHARACTER SET utf8;\
+Use UNI;\
+\
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth-112 \strokec6 CREATE TABLE Account (\
+\pard\pardeftab405\partightenfactor0
+\cf6 \outl0\strokewidth-112     account_id     INTEGER NOT NULL AUTO_INCREMENT, \cb12 \outl0\strokewidth-112 #Primary key\cb1 \outl0\strokewidth-112     or AUTO_INCREMENT KEY, (and then delete the line PRIMARY KEY (accuont_id))\
+    email	   VARCHAR(128) UNIQUE,\
+    name	   VARCHAR(128),\
+    PRIMARY KEY(account_id).                                                \cb12 \outl0\strokewidth-112 #Primary key\cb1 \outl0\strokewidth-112 \
+) ENGINE=InnoDB CHARACTER SET=utf8;\
+\
+CREATE TABLE Course (\
+    course_id     INTEGER NOT NULL AUTO_INCREMENT,   \cb12 \outl0\strokewidth-112 #Primary key\cb3     \cb1 \outl0\strokewidth-112 or AUTO_INCREMENT KEY, (and then delete the line PRIMARY KEY (course_id))\
+    title         VARCHAR(128) UNIQUE,\
+    PRIMARY KEY(course_id)                                                    \cb12 \outl0\strokewidth-112 #Primary key\cb1 \outl0\strokewidth-112 \
+) ENGINE=InnoDB CHARACTER SET=utf8;\kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf24 \
+
+\fs22 \
+\pard\pardeftab405\partightenfactor0
+
+\fs36 \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth-143 \strokec6 CREATE TABLE Member (\
+    account_id    INTEGER, \cf8 \cb15 \outl0\strokewidth-112 #Foreign key\cf6 \cb1 \outl0\strokewidth-143 \
+    course_id     INTEGER, \cf8 \cb15 \outl0\strokewidth-112 #Foreign key\cf6 \cb1 \outl0\strokewidth-143 \
+    role          INTEGER, # information complementary 1/0\
+\
+    \cb17 CONSTRAINT FOREIGN KEY (account_id) REFERENCES Account (account_id)\
+      ON DELETE CASCADE ON UPDATE CASCADE,\
+    CONSTRAINT FOREIGN KEY (course_id) REFERENCES Course (course_id)\
+       ON DELETE CASCADE ON UPDATE CASCADE,\
+\cb1 \
+    \cb28 PRIMARY KEY (account_id, course_id)   # The primary key is a combination \'93 Le couple\'94 of (account_id, course_id)\
+\cb1 \
+) ENGINE=InnoDB CHARACTER SET=utf8;\
+\
+\pard\pardeftab405\partightenfactor0
+\cf6 \outl0\strokewidth-134 INSERT INTO Account (name, email) VALUES ('Jane', 'jane@tsugi.org');\
+INSERT INTO Account (name, email) VALUES ('Ed', 'ed@tsugi.org');\
+INSERT INTO Account (name, email) VALUES ('Sue', 'sue@tsugi.org');\
+\
+INSERT INTO Course (title) VALUES ('Python');\
+INSERT INTO Course (title) VALUES ('SQL');\
+INSERT INTO Course (title) VALUES ('PHP');\
+\
+INSERT INTO Member (account_id, course_id, role) VALUES (1, 1, 1);\
+INSERT INTO Member (account_id, course_id, role) VALUES (2, 1, 0);\
+INSERT INTO Member (account_id, course_id, role) VALUES (3, 1, 0);\
+\
+INSERT INTO Member (account_id, course_id, role) VALUES (1, 2, 0);\
+INSERT INTO Member (account_id, course_id, role) VALUES (2, 2, 1);\
+\
+INSERT INTO Member (account_id, course_id, role) VALUES (2, 3, 1);\
+INSERT INTO Member (account_id, course_id, role) VALUES (3, 3, 0);\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf24 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 select * from member;\
++------------+-----------+------+\
+| account_id | course_id | role |\
++------------+-----------+------+\
+|          1 |         1 |    1 |\
+|          1 |         2 |    0 |\
+|          2 |         1 |    0 |\
+|          2 |         2 |    1 |\
+|          2 |         3 |    1 |\
+|          3 |         1 |    0 |\
+|          3 |         3 |    0 |\
++------------+-----------+------+
+\f1\fs36 \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth-134 \strokec6 \
+\pard\pardeftab405\partightenfactor0
+\cf6 \cb25 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf6 # For joining Accounts to courses through member:\cb1 \
+
+\f2\fs22 \cf24 \
+
+\f1\fs36 SELECT Account.name, Member.role, Course.title FROM  Account JOIN Member JOIN Course ON Member.account_id = Account.account_id AND Member.course_id = Course.course_id \
+\
+ORDER BY Course.title, Member.role DESC, Account.name;\
+\
+
+\f2\fs22 \
++------+------+--------+\
+| name | role | title  |\
++------+------+--------+\
+| Ed   |    1 | PHP    |\
+| Sue  |    0 | PHP    |\
+| Jane |    1 | Python |\
+| Ed   |    0 | Python |\
+| Sue  |    0 | Python |\
+| Ed   |    1 | SQL    |\
+| Jane |    0 | SQL    |\
++------+------+--------+}
